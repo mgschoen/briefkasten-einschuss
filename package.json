@@ -1,0 +1,17 @@
+{
+  "name": "briefkasten-einschuss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build inject-briefkasten-regulated.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "md5": "^2.2.1",
+    "seedrandom": "^3.0.5"
+  }
+}

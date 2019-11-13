@@ -1,0 +1,87 @@
+import gate from './js/gate';
+
+(function() {
+    var blacklistURL = 'https://static.zeit.de/embed/global-blacklist';
+    var embedURL = 'https://static.zeit.de/administratives/embeds/2019/briefkasten-article/briefkasten-article.html';
+    var articlePage = document.querySelector('.article-page[data-page-number="1"]');
+
+    // does not support window.fetch or previousElementSibling
+    if ( !('fetch' in window) || !('previousElementSibling' in document.documentElement) ) {
+        return;
+    }
+
+    // already has a mct-embed or tagmanager injection
+    if ( document.querySelector('#mycountrytalks-embed') || document.querySelector('#tagmanager-injection') ) {
+        return;
+    }
+
+    if ( !articlePage ) {
+        return;
+    }
+
+    // article is too short
+    if ( document.querySelectorAll('.article-page > .paragraph').length <= 3 ) {
+        return;
+    }
+
+    function loadEmbed() {
+        var paragraphs = document.querySelectorAll('.article-page[data-page-number="1"] > .paragraph'),
+            paragraph,
+            previous;
+        
+        for (var i = paragraphs.length - 2, stop = i - 3; i > -1 && i > stop; i--) {
+            paragraph = paragraphs[ i ];
+            previous = paragraph.previousElementSibling;
+
+            if (previous && previous.classList.contains('paragraph')) {
+                if (!previous.previousElementSibling || !previous.previousElementSibling.classList.contains('ad-container')) {
+                    fetch( embedURL ).then( function( response ) {
+                        return response.text();
+                    }).then( function( html ) {
+                        var container = document.createElement( 'div' );
+                        container.style.clear = 'both';
+                        container.setAttribute('id', 'tagmanager-injection');
+                        container.innerHTML = html;
+                        paragraph.insertAdjacentElement( 'beforebegin', container );
+
+                        // Resize Function
+                        window.addEventListener('message', function (evt){
+                            var embed = document.getElementById('mycountrytalks-embed');
+                            if ( embed ) {
+                                var currentScrollTop = 0, newScrollTop = 0;
+                                var additionalSafeSpace = 50;
+                                if (evt.origin === 'https://app.mycountrytalks.org') {
+                                      if ("wasResized" in embed.dataset) {
+                                        currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                                        newScrollTop = currentScrollTop + embed.getBoundingClientRect().top - additionalSafeSpace;
+                                        window.scrollTo(0, newScrollTop);
+                                      }
+                                      embed.style.height = evt.data + 'px';
+                                      embed.setAttribute('data-was-resized', 'true');
+                                }
+                            }
+                          }, false);
+                    });
+
+                    // stop iteration
+                    return;
+                }
+            } 
+        }
+    }
+
+    fetch( blacklistURL ).then( function( response ) {
+        return response.json();
+    }).then( function( data ) {
+        var onBlacklist = data.urls.some( function( element ) {
+            return location.href.indexOf(element) !== -1;
+        });
+        if (!onBlacklist) {
+            var canonicalUrl = document.querySelector('meta[property="og:url"]').getAttribute('content') || window.location.href;
+            if (gate(canonicalUrl, 3)) {
+                loadEmbed();
+            }
+        }
+    });
+
+})();
