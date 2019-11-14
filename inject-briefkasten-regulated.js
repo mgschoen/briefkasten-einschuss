@@ -10,8 +10,8 @@ import dice from './js/dice';
         return;
     }
 
-    // already has a mct-embed or tagmanager injection
-    if ( document.querySelector('#mycountrytalks-embed') || document.querySelector('#tagmanager-injection') ) {
+    // already has a briefkasten embed or tagmanager injection
+    if ( document.querySelector('.briefkastenbox') || document.querySelector('#tagmanager-injection') ) {
         return;
     }
 
