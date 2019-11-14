@@ -24,6 +24,13 @@ import dice from './js/dice';
         return;
     }
 
+    // do not continue if page 1 already contains marginalia elements
+    var pageOne = document.querySelector('.article-page[data-page-number="1"]');
+    var marginalia = pageOne.querySelector('.authorbox, .volume-teaser');
+    if (marginalia) {
+        return;
+    }   
+
     function loadEmbed() {
         var paragraphs = document.querySelectorAll('.article-page[data-page-number="1"] > .paragraph'),
             paragraph,
