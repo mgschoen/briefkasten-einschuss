@@ -43,24 +43,6 @@ import dice from './js/dice';
                         container.setAttribute('id', 'tagmanager-injection');
                         container.innerHTML = html;
                         previous.insertAdjacentElement( 'beforebegin', container );
-
-                        // Resize Function
-                        window.addEventListener('message', function (evt){
-                            var embed = document.getElementById('mycountrytalks-embed');
-                            if ( embed ) {
-                                var currentScrollTop = 0, newScrollTop = 0;
-                                var additionalSafeSpace = 50;
-                                if (evt.origin === 'https://app.mycountrytalks.org') {
-                                      if ("wasResized" in embed.dataset) {
-                                        currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-                                        newScrollTop = currentScrollTop + embed.getBoundingClientRect().top - additionalSafeSpace;
-                                        window.scrollTo(0, newScrollTop);
-                                      }
-                                      embed.style.height = evt.data + 'px';
-                                      embed.setAttribute('data-was-resized', 'true');
-                                }
-                            }
-                          }, false);
                     });
 
                     // stop iteration
