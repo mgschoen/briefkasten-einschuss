@@ -1,4 +1,4 @@
-import gate from './gate';
+import dice from './dice';
 
 var urls = [
     "https://www.zeit.de/politik/ausland/2019-11/gaza-raketen-israel-luftwaffe-nahost-konflikt",
@@ -74,7 +74,7 @@ var urls = [
     var acceptedUrls = [];
     for (var i = 0; i < urls.length; i++) {
         var url = urls[i];
-        if (gate(url, 3)) {
+        if (dice(url, 3)) {
             console.log('yep', url);
             acceptedUrls.push(url);
         } else {

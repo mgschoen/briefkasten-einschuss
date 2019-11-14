@@ -1,4 +1,4 @@
-import gate from './js/gate';
+import dice from './js/dice';
 
 (function() {
     var blacklistURL = 'https://static.zeit.de/embed/global-blacklist';
@@ -78,7 +78,7 @@ import gate from './js/gate';
         });
         if (!onBlacklist) {
             var canonicalUrl = document.querySelector('meta[property="og:url"]').getAttribute('content') || window.location.href;
-            if (gate(canonicalUrl, 3)) {
+            if (dice(canonicalUrl, 3)) {
                 loadEmbed();
             }
         }
