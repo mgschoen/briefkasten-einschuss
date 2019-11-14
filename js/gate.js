@@ -1,5 +1,5 @@
-import md5 from 'md5';
-import seedrandom from 'seedrandom';
+import md5 from 'blueimp-md5';
+import seedrandom from 'seed-random';
 
 /**
  * Returns a stable decision about whether or not a given url should
@@ -14,6 +14,7 @@ export default function (url, divisor) {
     var hash = md5(url);
     var generateRandomNumber = seedrandom(hash);
     var randomNumber = Math.floor(generateRandomNumber() * 1000000000);
-    console.log(url, hash, randomNumber);
-    return randomNumber % divisor === 0;
+    var positive = randomNumber % divisor === 0;
+    console.log(url, hash, randomNumber, positive);
+    return positive;
 }
