@@ -29,7 +29,7 @@ import dice from './js/dice';
             paragraph,
             previous;
         
-        for (var i = paragraphs.length - 2, stop = i - 3; i > -1 && i > stop; i--) {
+        for (var i = paragraphs.length - 1, stop = i - 3; i > -1 && i > stop; i--) {
             paragraph = paragraphs[ i ];
             previous = paragraph.previousElementSibling;
 
@@ -42,7 +42,7 @@ import dice from './js/dice';
                         container.style.clear = 'both';
                         container.setAttribute('id', 'tagmanager-injection');
                         container.innerHTML = html;
-                        paragraph.insertAdjacentElement( 'beforebegin', container );
+                        previous.insertAdjacentElement( 'beforebegin', container );
 
                         // Resize Function
                         window.addEventListener('message', function (evt){
