@@ -25,8 +25,7 @@ import dice from './js/dice';
     }
 
     // do not continue if page 1 already contains marginalia elements
-    var pageOne = document.querySelector('.article-page[data-page-number="1"]');
-    var marginalia = pageOne.querySelector('.authorbox, .volume-teaser');
+    var marginalia = articlePage.querySelector('.authorbox, .volume-teaser');
     if (marginalia) {
         return;
     }   
