@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build inject-briefkasten-regulated.js"
+    "build": "parcel build inject-briefkasten-regulated.js -o inject-briefkasten.${npm_package_version}.js"
   },
   "keywords": [],
   "author": "",
