@@ -78,7 +78,7 @@ import dice from './js/dice';
         });
         if (!onBlacklist) {
             var canonicalUrl = document.querySelector('meta[property="og:url"]').getAttribute('content') || window.location.href;
-            if (dice(canonicalUrl, 3)) {
+            if (dice(canonicalUrl, 2)) {
                 loadEmbed();
             }
         }
