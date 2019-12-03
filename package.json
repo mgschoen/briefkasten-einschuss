@@ -6,6 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "rm -r ./dist/ && parcel build inject-briefkasten-regulated.js -o inject-briefkasten.${npm_package_version}.js",
+    "build-webpack": "rm -r ./dist/ && webpack inject-briefkasten-regulated.js -o ./dist/inject-briefkasten.${npm_package_version}.webpack.js --mode production",
     "deploy": "scp ./dist/* martin@live1.zeit.de:/var/www/live.zeit.de/interactive/briefkasten.cached/ && scp ./dist/* martin@live2.zeit.de:/var/www/live.zeit.de/interactive/briefkasten.cached/"
   },
   "keywords": [],
@@ -14,5 +15,9 @@
   "dependencies": {
     "blueimp-md5": "^2.12.0",
     "seed-random": "^2.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
