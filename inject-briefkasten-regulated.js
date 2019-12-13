@@ -4,6 +4,11 @@ import dice from './js/dice';
     var blacklistURL = 'https://static.zeit.de/embed/global-blacklist';
     var embedURL = 'https://static.zeit.de/administratives/embeds/2019/briefkasten-article/briefkasten-article.html';
     var articlePage = document.querySelector('.article-page[data-page-number="1"]');
+    var marginaliaSelector = [
+        '.authorbox',
+        '.volume-teaser',
+        '.topicbox'
+    ].join(', ');
 
     // does not support window.fetch or previousElementSibling
     if ( !('fetch' in window) || !('previousElementSibling' in document.documentElement) ) {
@@ -25,7 +30,7 @@ import dice from './js/dice';
     }
 
     // do not continue if page 1 already contains marginalia elements
-    var marginalia = articlePage.querySelector('.authorbox, .volume-teaser');
+    var marginalia = articlePage.querySelector(marginaliaSelector);
     if (marginalia) {
         return;
     }   
